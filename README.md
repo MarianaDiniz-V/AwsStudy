@@ -14,8 +14,15 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
     <img src = "https://www.tibco.com/sites/tibco/files/media_entity/2020-05/api-gateway-diagram.svg">
 ###### [img: https://www.tibco.com/pt-br/reference-center/what-is-an-api-gateway]
 
+# Computação
 
-# Dados e Armazenamento:
+
+## Lambda
+
+É um serviço de computação que permite executar código sem provisionar ou gerenciar servidores. Após criado, o Lambda trás um trigger: o CloudWatch, onde podemos ver os logs da função. Nós podemos criar outros triggers, que são basicamente outros serviços da aws.
+
+
+# Dados e Armazenamento
 
 
 ## Amazon S3
@@ -53,4 +60,4 @@ O primeiro passo é criar um bucket e anexar nele os objetos desejados. Esse buc
 
 * Selecionamos a origem (Bucket) e em "S3 Bucket access", "Yes use OAI". Pois definimos que o bucket seria restrito.
 * Podemos deixar que a aws faça o updtade do Bucket Policy 
-
+* Para consultar o cloudfront, passamos juntamente ao endereço o nome do objeto anexado
