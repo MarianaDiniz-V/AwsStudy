@@ -36,3 +36,21 @@ A cada alteração feita, a aws na verdade criará um novo objeto, com seu próp
 
 * Dentro do objeto, ao ativar a opção "show versions", podemos visualizar todas as versões do mesmo.
 * Podemos configurar um lyfecicle para transicionar ou excluir as versões de acordo com uma regra.
+
+### Site estático com o S3
+
+Com o S3 podemos também hospedar um site estático, sem preocupações com o servidor. 
+
+* Após a criação do bucker, basta deixá-lo público e ativar a propriedade de "tatic website hosting".
+* Nesta página, vamos informar nossa página principal, que é "index.html", na seção "Index document".
+* Por mim, adicionamos ao bucker o objeto desejado.
+
+### Cloudfront
+
+É um serviço que acelera a distribuição de conteúdo e arquivos de imagem para os usuários. Quando o usuário faz uma solcitação através desse, a solicitação é roteada para o ponto de presença que fornece a menor latência.
+
+O primeiro passo é criar um bucket e anexar nele os objetos desejados. Esse bucker deve ser privado, pois a nossa intenção é "amarra-lo" ao cloudfront, sendo assim, o único meio de acesso. Após a criação e configuração do bucket, criamos um cloudfront:
+
+* Selecionamos a origem (Bucket) e em "S3 Bucket access", "Yes use OAI". Pois definimos que o bucket seria restrito.
+* Podemos deixar que a aws faça o updtade do Bucket Policy 
+
