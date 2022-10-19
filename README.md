@@ -11,8 +11,20 @@
 
 Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requisição, ela é responsável por acionar o microsserviço correto. Ela pode, inclusive, chamar uma função lambda.
 
-    <img src = "https://www.tibco.com/sites/tibco/files/media_entity/2020-05/api-gateway-diagram.svg">
+<img src = "https://www.tibco.com/sites/tibco/files/media_entity/2020-05/api-gateway-diagram.svg">
+
 ###### [img: https://www.tibco.com/pt-br/reference-center/what-is-an-api-gateway]
+
+* Devemos criar uma policy sobre o serviço de aws que será "amarrado" ao Gateway, como por exemplo o S3. Essa policy descreve todas as ações que poderão ser executadas.
+* Criamos também uma role, que linka a essa policy e direciona a um serviço, no nosso caso, ao Api Gateway.
+
+### Importando a API
+
+###### ** Aqui consideramos que um Bucket já tenha sido criado e que o yml da aplicação esteja configurado. **
+
+
+
+
 
 # Computação
 
