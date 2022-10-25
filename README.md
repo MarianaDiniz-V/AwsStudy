@@ -20,7 +20,11 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
 
 ### Importando a API
 
-###### ** Aqui consideramos que um Bucket já tenha sido criado e que o yml da aplicação esteja configurado. **
+* Com um Bucket(S3) já criado, amarramos ele ao Gateway configurando o yaml da aplicação.
+* Na aws, basta criar uma api e importar o arquivo de configuração.
+* Com  api importada, podemos criar novos métodos(verbos). Configuramos a parte de "integration request" e mapeamos os parâmetros. Por exemplo: se o nome do parâmetro é "teste", o mapeamento ficaria: method.request.path.teste.
+* Em "integration response", podemos configurar códigos e mensagem para determinados cenários. A configuração da mensagem é feita em: Mapping Templates -> Content-Type
+
 
 
 
@@ -29,9 +33,18 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
 # Computação
 
 
+## EC2
+
+Ao criar uma nova instância, é recomendado criar e salvar um par de chaves(interna e externa) para que possamos ter acesso ao servidor. Essa chave vem com um número alto de permissões, mas o ideal é que seja permitido apenas a leitura dessa chave. Para isso, rodamos o seguinte comando: **chmod 400 + nome**
+
+Para acessar a instância via ssh, entramos nela e vamos na opção "conectar". Em "client ssh", copiamos o comando e rodamos na mesma pasta onde salvamos a chave.
+
+
+
 ## Lambda
 
 É um serviço de computação que permite executar código sem provisionar ou gerenciar servidores. Após criado, o Lambda trás um trigger: o CloudWatch, onde podemos ver os logs da função. Nós podemos criar outros triggers, que são basicamente outros serviços da aws.
+
 
 
 # Dados e Armazenamento
@@ -44,7 +57,7 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
 * Dentro da S3, criamos um bucket, que deve possuir um nome únio dentro da AWS.
 * Com o Bucker criado, basta fazer o upload dos arquivos.
 
-Por padrão, um bucket vem público. Porém, para ter acesso a ele, precisamos criar uma policy e desativar a opção "Block all public access".
+Por padrão, um bucket não vem público. Para ter acesso a ele, precisamos criar uma policy e desativar a opção "Block all public access".
 
 * Dentro de permissões, selecionamos a opção "edit bucket policy".
 * Digitamos então a policy desejada. Existem alguns exemplos em "policy examples".
@@ -60,15 +73,15 @@ A cada alteração feita, a aws na verdade criará um novo objeto, com seu próp
 
 Com o S3 podemos também hospedar um site estático, sem preocupações com o servidor. 
 
-* Após a criação do bucker, basta deixá-lo público e ativar a propriedade de "tatic website hosting".
+* Após a criação do bucker, basta deixá-lo público e ativar a propriedade de "estatic website hosting".
 * Nesta página, vamos informar nossa página principal, que é "index.html", na seção "Index document".
-* Por mim, adicionamos ao bucker o objeto desejado.
+* Por fim, adicionamos ao bucket o objeto desejado.
 
 ### Cloudfront
 
 É um serviço que acelera a distribuição de conteúdo e arquivos de imagem para os usuários. Quando o usuário faz uma solcitação através desse, a solicitação é roteada para o ponto de presença que fornece a menor latência.
 
-O primeiro passo é criar um bucket e anexar nele os objetos desejados. Esse bucker deve ser privado, pois a nossa intenção é "amarra-lo" ao cloudfront, sendo assim, o único meio de acesso. Após a criação e configuração do bucket, criamos um cloudfront:
+O primeiro passo é criar um bucket e anexar nele os objetos desejados. Esse bucket deve ser privado, pois a nossa intenção é "amarra-lo" ao cloudfront, sendo assim, o único meio de acesso. Após a criação e configuração do bucket, criamos um cloudfront:
 
 * Selecionamos a origem (Bucket) e em "S3 Bucket access", "Yes use OAI". Pois definimos que o bucket seria restrito.
 * Podemos deixar que a aws faça o updtade do Bucket Policy 
