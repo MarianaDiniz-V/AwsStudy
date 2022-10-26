@@ -6,6 +6,16 @@
 
 É um serviço responsável por manter a estabilidade de um servidor quando o tráfego ou o volume de dados é muito grande. A idéia é distribuir as milhares de solicitações entre os diferentes servidores. 
 
+Aqui consideramos uma instância ec2 rodando um serviço web.
+
+* Duplicamos a instância em questão, alterando apenas nome e zona de disponibilidade.
+* Com as instâncias criadas, podemos criar um load balancer, lembrando de se atenar a vpc, caso haja mais de uma, zonas de disponibilidade e subnet. 
+* Mesmo com a opção de acesso pelo mundo externo habilitada, devemos atribuir a ele  grupo com essas permissões. Devemos criar também um target group.
+* Com o load balancer criados, podemos testar através do nome de DNS.
+
+### Auto Scaling
+
+Com ele podemos provisionar um escalonamento automático de recursos. O primeiro passo é criar um modelo(hardware). Com o modelo criado, criamos um grupo de auto scaling e o selecionamos. Na opçao de adicionar um balaneador de carga, nós, na verdade, selecionamos um target group, que é o grupo de destino do load balancer.
 
 ## Api Gateway
 
@@ -13,7 +23,7 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
 
 <img src = "https://www.tibco.com/sites/tibco/files/media_entity/2020-05/api-gateway-diagram.svg">
 
-###### [img: https://www.tibco.com/pt-br/reference-center/what-is-an-api-gateway]
+###### [https://www.tibco.com/pt-br/reference-center/what-is-an-api-gateway]
 
 * Devemos criar uma policy sobre o serviço de aws que será "amarrado" ao Gateway, como por exemplo o S3. Essa policy descreve todas as ações que poderão ser executadas.
 * Criamos também uma role, que linka a essa policy e direciona a um serviço, no nosso caso, ao Api Gateway.
@@ -38,6 +48,13 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
 Ao criar uma nova instância, é recomendado criar e salvar um par de chaves(interna e externa) para que possamos ter acesso ao servidor. Essa chave vem com um número alto de permissões, mas o ideal é que seja permitido apenas a leitura dessa chave. Para isso, rodamos o seguinte comando: **chmod 400 + nome**
 
 Para acessar a instância via ssh, entramos nela e vamos na opção "conectar". Em "client ssh", copiamos o comando e rodamos na mesma pasta onde salvamos a chave.
+
+### Alocação de IP
+
+Toda instância possui um IP, que é alterado toda vez que interrompemos essa instância ou até mesmo em caso de instabilidade. Por isso, o ideal é que aloquemos um ip.
+
+* Em "IP's elásticos" criamos um novo IP.
+* Com o IP criado, selecionamos "Alocar endereço IP elástico" e "Associar endereço IP elástico"
 
 
 
