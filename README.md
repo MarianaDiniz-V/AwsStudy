@@ -36,10 +36,6 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
 * Em "integration response", podemos configurar códigos e mensagem para determinados cenários. A configuração da mensagem é feita em: Mapping Templates -> Content-Type
 
 
-
-
-
-
 # Computação
 
 
@@ -62,6 +58,36 @@ Toda instância possui um IP, que é alterado toda vez que interrompemos essa in
 
 É um serviço de computação que permite executar código sem provisionar ou gerenciar servidores. Após criado, o Lambda trás um trigger: o CloudWatch, onde podemos ver os logs da função. Nós podemos criar outros triggers, que são basicamente outros serviços da aws.
 
+
+# Containers
+
+## Elastic Container Service (ECS)
+
+É um serviço de orquestração de contêineres.
+
+
+<img src = "https://miro.medium.com/max/720/1*f85DYkcx6eJneaVrKaX8ow.png">
+
+###### [https://medium.com/huia/orquestrando-e-configurando-containers-docker-com-o-ecs-na-aws-2bbd6a6a4781]
+
+* No núcleo temos o container docker. 
+* A task definition possui os parêmetros de como a tarefa será executada.
+* A service é a responsáel por administrar as tarefas.
+* Cluster é basicamente o agrupamento das instâncias.
+
+Na criação do Cluster podemos utilizar dois serviços: o EC2 e o **Fargate**. Diferente do EC2, no Fargate toda a infraestrutura é provisionada e gerenciada pela AWS.
+
+## Elastic Container Registry (ECR)
+
+É um serviço de registro de imagem de contêiner, onde usuários ou instâncias do Amazon EC2 especificados podem acessar seus repositórios e imagens.
+
+* Dentro do serviço de ECS, temos no menu a opção de repositório. Trata-se do ECR.
+* Sempre que criamos um repositório, a AWS disponibiliza um passo a passo para o push.
+
+Aqui consideramos que o Cluster já tenha sido criado. Para linkar esse repositório ao ECS, criamos uma nova task definition:
+
+* Ao selecionar a opção de "Add Container", colamos a URI do repository no campo "image".
+* Agora podemos criar uma service, dentro do Cluster, e selecionar a task definition criada.
 
 
 # Dados e Armazenamento
