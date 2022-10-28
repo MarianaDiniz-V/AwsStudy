@@ -17,6 +17,13 @@ Aqui consideramos uma instância ec2 rodando um serviço web.
 
 Com ele podemos provisionar um escalonamento automático de recursos. O primeiro passo é criar um modelo(hardware). Com o modelo criado, criamos um grupo de auto scaling e o selecionamos. Na opçao de adicionar um balaneador de carga, nós, na verdade, selecionamos um target group, que é o grupo de destino do load balancer.
 
+
+### Ponteiro
+
+Aqui estamos trabalhando com microsserviços, onde cada um aponta para um container. Dentro do load balancer, em listeners, vamos editar as roles:
+
+* Criamos uma nova role com a seguinte condição: IF path-pattern THEN foward. Basicamente, definimos um caminho e o container para o qual ele deve ser redirecionado.
+
 ## Api Gateway
 
 Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requisição, ela é responsável por acionar o microsserviço correto. Ela pode, inclusive, chamar uma função lambda.
@@ -27,6 +34,7 @@ Funciona como uma porta de entrada para a nossa aplicação. Ao receber uma requ
 
 * Devemos criar uma policy sobre o serviço de aws que será "amarrado" ao Gateway, como por exemplo o S3. Essa policy descreve todas as ações que poderão ser executadas.
 * Criamos também uma role, que linka a essa policy e direciona a um serviço, no nosso caso, ao Api Gateway.
+
 
 ### Importando a API
 
@@ -51,7 +59,6 @@ Toda instância possui um IP, que é alterado toda vez que interrompemos essa in
 
 * Em "IP's elásticos" criamos um novo IP.
 * Com o IP criado, selecionamos "Alocar endereço IP elástico" e "Associar endereço IP elástico"
-
 
 
 ## Lambda
@@ -88,6 +95,7 @@ Aqui consideramos que o Cluster já tenha sido criado. Para linkar esse reposit�
 
 * Ao selecionar a opção de "Add Container", colamos a URI do repository no campo "image".
 * Agora podemos criar uma service, dentro do Cluster, e selecionar a task definition criada.
+* Nas regras de segurança precisamos permitir o acesso externo ao load balancer e o acesso interno(do load balancer) ao container. Para o acesso interno, permitimos apenas a rede da VPC ou das subnets(mais específico).
 
 
 # Dados e Armazenamento
