@@ -137,3 +137,4 @@ O primeiro passo é criar um bucket e anexar nele os objetos desejados. Esse buc
 * Selecionamos a origem (Bucket) e em "S3 Bucket access", "Yes use OAI". Pois definimos que o bucket seria restrito.
 * Podemos deixar que a aws faça o updtade do Bucket Policy 
 * Para consultar o cloudfront, passamos juntamente ao endereço o nome do objeto anexado
+
